@@ -9,16 +9,25 @@ import {
   ExternalLink,
   Video,
   BookOpen,
+  Plus,
+  Upload,
 } from 'lucide-react';
 import { useLms } from '@/context/LmsContext';
+import { useAuth } from '@/context/AuthContext';
+import CreateCourseModal from '@/components/CreateCourseModal';
+import ImportCourseModal from '@/components/ImportCourseModal';
+import { Course } from '@/types';
 
 function YouTubeCatalogContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams?.get('q') || '';
 
-  const { courses, assignments, liveSessions } = useLms();
+  const { courses, assignments, liveSessions, saveCourse } = useLms();
+  const { effectiveIsAdmin } = useAuth();
 
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
   const visibleCourses = useMemo(() => {
     return courses.filter((c) => c.visibility !== 'draft' && c.published !== false);
@@ -58,20 +67,28 @@ function YouTubeCatalogContent() {
     });
   }, [visibleCourses, selectedCategory, initialQuery, assignments, liveSessions]);
 
+  const handleCreateCourse = async (newCourse: Course) => {
+    await saveCourse(newCourse);
+  };
+
+  const handleImportCourse = async (importedCourse: Course) => {
+    await saveCourse(importedCourse);
+  };
+
   return (
-    <main className="flex-1 min-w-0 px-4 sm:px-6 py-4 bg-[#ffffff]">
-      {/* Chips de categorías estilo YouTube */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-4 no-scrollbar">
+    <main className="flex-1 bg-[#ffffff] p-4 sm:p-6 lg:p-8 max-w-[1920px] mx-auto w-full">
+      {/* Barra de Filtros / Chips estilo YouTube */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
         {categories.map((cat) => {
-          const active = selectedCategory === cat;
+          const isSelected = selectedCategory === cat;
           return (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
-                active
-                  ? 'bg-[#0f0f0f] text-[#ffffff]'
+                isSelected
+                  ? 'bg-[#0f0f0f] text-white'
                   : 'bg-[#f2f2f2] text-[#0f0f0f] hover:bg-[#e5e5e5]'
               }`}
             >
@@ -81,16 +98,20 @@ function YouTubeCatalogContent() {
         })}
       </div>
 
-      {/* Aviso de próxima clase en vivo */}
-      {liveSessions.length > 0 && (
-        <div className="mb-6 p-4 rounded-xl bg-[#f9f9f9] border border-[#e5e5e5] flex flex-wrap items-center justify-between gap-4">
+      {/* Banner de Próxima Clase en Vivo si existe */}
+      {liveSessions.length > 0 && liveSessions[0].joinUrl && (
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0f0f0f]/5 via-[#0f0f0f]/10 to-transparent border border-[#e5e5e5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 rounded-md bg-[#cc0000] text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-              <Video className="w-3.5 h-3.5" />
-              En Vivo
-            </span>
+            <div className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0 animate-pulse">
+              <Video className="w-5 h-5" />
+            </div>
             <div>
-              <p className="text-sm font-bold text-[#0f0f0f]">{liveSessions[0].title}</p>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white inline-block mb-1">
+                En Vivo
+              </span>
+              <h2 className="text-sm sm:text-base font-bold text-[#0f0f0f]">
+                {liveSessions[0].title}
+              </h2>
               <p className="text-xs text-[#606060]">
                 {liveSessions[0].courseSlug} · Instructor: {liveSessions[0].instructorName}
               </p>
@@ -221,18 +242,50 @@ function YouTubeCatalogContent() {
           <p className="text-xs text-[#606060] leading-relaxed mb-5">
             {initialQuery
               ? 'Intenta con otra palabra o vuelve al catálogo completo.'
-              : 'Próximamente encontrarás aquí los cursos disponibles en el catálogo.'}
+              : 'Comienza creando tu primer curso en la plataforma o importa un programa preexistente.'}
           </p>
-          {initialQuery && (
+
+          {initialQuery ? (
             <Link
               href="/"
               className="px-4 py-2 rounded-full bg-[#0f0f0f] text-white text-xs font-semibold inline-block"
             >
               Ver todos los cursos
             </Link>
+          ) : (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+              <button
+                type="button"
+                onClick={() => setIsCreateModalOpen(true)}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#0f0f0f] hover:bg-[#272727] text-white text-xs font-semibold inline-flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs active:scale-95"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Crear Curso</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsImportModalOpen(true)}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-white hover:bg-[#f2f2f2] text-[#0f0f0f] border border-[#e5e5e5] text-xs font-semibold inline-flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs active:scale-95"
+              >
+                <Upload className="w-4 h-4 text-[#606060]" />
+                <span>Importar tu primer curso</span>
+              </button>
+            </div>
           )}
         </div>
       )}
+
+      {/* Modales de Creación e Importación */}
+      <CreateCourseModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onCreateCourse={handleCreateCourse}
+      />
+      <ImportCourseModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImportCourse={handleImportCourse}
+      />
     </main>
   );
 }

@@ -64,6 +64,7 @@ interface LmsContextValue {
   deleteCalendarEvent: (eventId: string) => void;
   createLiveSession: (session: Omit<LiveVirtualSession, 'id'>) => void;
   deleteLiveSession: (sessionId: string) => void;
+  saveCourse: (course: Course) => Promise<void>;
 }
 
 const LmsContext = createContext<LmsContextValue | undefined>(undefined);
@@ -525,6 +526,24 @@ export function LmsProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const saveCourse = useCallback(async (newCourse: Course) => {
+    const normalized = normalizeCourse(newCourse);
+    const cleanPayload = cleanForFirebase(normalized);
+    try {
+      await set(ref(db, `courses/${normalized.slug}`), cleanPayload);
+    } catch (err) {
+      console.warn('Advertencia guardando en Firebase:', err);
+    }
+    setCourses((prev) => {
+      const filtered = prev.filter((c) => c.slug !== normalized.slug);
+      const updated = [...filtered, normalized];
+      try {
+        localStorage.setItem('ipt_local_courses_v1', JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
+  }, []);
+
   const deleteLiveSession = useCallback((sessionId: string) => {
     setLiveSessions((prev) => {
       const next = prev.filter((s) => s.id !== sessionId);
@@ -566,6 +585,7 @@ export function LmsProvider({ children }: { children: React.ReactNode }) {
         deleteCalendarEvent,
         createLiveSession,
         deleteLiveSession,
+        saveCourse,
       }}
     >
       {children}
