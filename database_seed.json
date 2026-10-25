@@ -1838,6 +1838,357 @@
       "whatYouWillLearn": [
         "Nuevo aprendizaje zootécnico o tecnológico..."
       ]
+    },
+    "para-andres": {
+      "slug": "para-andres",
+      "title": "PARA ANDRES",
+      "subtitle": "",
+      "description": "Tutoriales DataGan 360",
+      "thumbnail": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/images/datagan-course-cover-v2.jpeg?v=2",
+      "instructor": {
+        "name": "Iván Samuel Pérez Torrenegra",
+        "role": "DataGan 360",
+        "avatar": "/images/logo.webp"
+      },
+      "category": "Tutoriales DataGan 360",
+      "level": "General",
+      "rating": 5,
+      "ratingsCount": 1,
+      "published": true,
+      "visibility": "public",
+      "accessType": "free",
+      "price": 0,
+      "licenseToken": "6d41ccc947a0a11f678a11debca412b2827ea313006a4149ee17840691524329",
+      "approxHours": "1 hora",
+      "whatYouWillLearn": [],
+      "progressionMode": "free",
+      "phase2Visible": false,
+      "phase3Visible": false,
+      "phase3Mode": "none",
+      "modules": [
+        {
+          "id": "configuracion-y-administracion",
+          "title": "Configuración y Administración",
+          "description": "",
+          "order": 1,
+          "lessons": [
+            {
+              "id": "configuracion-especial",
+              "title": "Configuración del Sistema (Especial)",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-configuracion-especial-locutado.mp4",
+              "duration": "02:03",
+              "durationSeconds": 123,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "configuracion-sistema",
+              "title": "Configuración del Sistema",
+              "description": "",
+              "order": 2,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v5-configuracion-locutado.mp4",
+              "duration": "02:09",
+              "durationSeconds": 129,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "gestion-terceros",
+              "title": "Gestión de Terceros",
+              "description": "",
+              "order": 3,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v1-terceros-locutado.mp4",
+              "duration": "02:27",
+              "durationSeconds": 147,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "roles-trabajadores",
+              "title": "Roles y Trabajadores",
+              "description": "",
+              "order": 4,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v9-roles-trabajadores-locutado.mp4",
+              "duration": "02:27",
+              "durationSeconds": 147,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "fincas-geolocalizacion",
+              "title": "Fincas y Geolocalización",
+              "description": "",
+              "order": 5,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v10-fincas-locutado.mp4",
+              "duration": "01:47",
+              "durationSeconds": 107,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "bovinos-y-potreros",
+          "title": "Bovinos y Potreros",
+          "description": "",
+          "order": 2,
+          "lessons": [
+            {
+              "id": "potreros-lotes-animales",
+              "title": "Potreros, Lotes y Creación de Animales",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v2-bovinos-locutado.mp4",
+              "duration": "04:29",
+              "durationSeconds": 269,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "transferencia-propietario",
+              "title": "Transferencia de Propietario",
+              "description": "",
+              "order": 2,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v3-transferencia-locutado.mp4",
+              "duration": "01:03",
+              "durationSeconds": 63,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "produccion",
+          "title": "Producción",
+          "description": "",
+          "order": 3,
+          "lessons": [
+            {
+              "id": "pesaje-registro-leche",
+              "title": "Pesaje y Registro de Leche",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v4-produccion-locutado.mp4",
+              "duration": "02:35",
+              "durationSeconds": 155,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "dashboard",
+          "title": "Dashboard",
+          "description": "",
+          "order": 4,
+          "lessons": [
+            {
+              "id": "dashboard-analitica",
+              "title": "Dashboard Analítica",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v6-dashboard-analitica-locutado.mp4",
+              "duration": "01:42",
+              "durationSeconds": 102,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "dashboard-gestion-operativa",
+              "title": "Dashboard Gestión Operativa",
+              "description": "",
+              "order": 2,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v7-dashboard-gestion-locutado.mp4",
+              "duration": "01:22",
+              "durationSeconds": 82,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "dashboard-rendimiento-tops",
+              "title": "Dashboard Rendimiento y Tops",
+              "description": "",
+              "order": 3,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-v8-dashboard-rendimiento-tops-locutado.mp4",
+              "duration": "01:18",
+              "durationSeconds": 78,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "finanzas",
+          "title": "Finanzas",
+          "description": "",
+          "order": 5,
+          "lessons": [
+            {
+              "id": "inventario-stock",
+              "title": "Inventario y Stock",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v1-finanzas-inventario-preliminar-locutado.mp4",
+              "duration": "02:25",
+              "durationSeconds": 145,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "actividades-kanban",
+              "title": "Actividades y Tablero Kanban",
+              "description": "",
+              "order": 2,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v2-finanzas-actividades-kanban-locutado.mp4",
+              "duration": "02:49",
+              "durationSeconds": 169,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "compras-ventas",
+              "title": "Compras y Ventas",
+              "description": "",
+              "order": 3,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v3-finanzas-compras-ventas-locutado.mp4",
+              "duration": "03:07",
+              "durationSeconds": 187,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "cuentas-patrimonio",
+              "title": "Cuentas y Patrimonio",
+              "description": "",
+              "order": 4,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v4-finanzas-cuentas-patrimonio-locutado.mp4",
+              "duration": "02:29",
+              "durationSeconds": 149,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "trazabilidad-y-salud",
+          "title": "Trazabilidad y Salud",
+          "description": "",
+          "order": 6,
+          "lessons": [
+            {
+              "id": "trazabilidad-movimientos",
+              "title": "Trazabilidad y Movimientos",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v6-trazabilidad-animales-locutado.mp4",
+              "duration": "02:20",
+              "durationSeconds": 140,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "salud-reproductiva-clinica",
+              "title": "Chequeo Reproductivo y Clínico",
+              "description": "",
+              "order": 2,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v7-salud-reproductiva-clinica-locutado.mp4",
+              "duration": "03:09",
+              "durationSeconds": 189,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            },
+            {
+              "id": "nacimientos-genealogia",
+              "title": "Nacimientos y Genealogía",
+              "description": "",
+              "order": 3,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v8-salud-nacimientos-genealogia-locutado.mp4",
+              "duration": "01:33",
+              "durationSeconds": 93,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        },
+        {
+          "id": "reportes",
+          "title": "Reportes",
+          "description": "",
+          "order": 7,
+          "lessons": [
+            {
+              "id": "reportes-hoja-vida",
+              "title": "Reportes y Hoja de Vida",
+              "description": "",
+              "order": 1,
+              "videoType": "mp4",
+              "videoUrl": "https://pub-ac305c99ed4042c9976f0abc2d0123b3.r2.dev/videos/datagan360-t2-v5-reportes-hoja-vida-locutado.mp4",
+              "duration": "02:29",
+              "durationSeconds": 149,
+              "metrics": [],
+              "resources": [],
+              "inVideoCheckpoints": [],
+              "checkpointQuiz": []
+            }
+          ]
+        }
+      ]
     }
   },
   "metrics": {

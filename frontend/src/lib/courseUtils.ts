@@ -121,8 +121,16 @@ export function normalizeCourse(raw: any): Course {
       const lesId = String(l?.id || `mod-${modOrder}-les-${lesOrder}`);
       const lesTitle = String(l?.title || `Lección ${modOrder}.${lesOrder}`).trim();
       const lesDescription = String(l?.description || '').trim();
-      const videoType: 'youtube' | 'local' = l?.videoType === 'local' ? 'local' : 'youtube';
       const videoUrl = String(l?.videoUrl || '').trim();
+      const isDirectVideo =
+        l?.videoType === 'local' ||
+        videoUrl.includes('.mp4') ||
+        videoUrl.includes('.webm') ||
+        videoUrl.includes('r2.dev') ||
+        videoUrl.includes('firebasestorage') ||
+        videoUrl.startsWith('blob:') ||
+        (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be') && videoUrl.startsWith('http'));
+      const videoType: 'youtube' | 'local' = isDirectVideo ? 'local' : 'youtube';
       const duration = String(l?.duration || '12:00').trim();
       const durationSeconds = typeof l?.durationSeconds === 'number' ? l?.durationSeconds : 720;
 

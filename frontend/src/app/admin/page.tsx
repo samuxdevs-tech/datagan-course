@@ -2432,7 +2432,15 @@ function AdminStudioWorkspace() {
                         <input
                           type="text"
                           value={currentLesson.videoUrl}
-                          onChange={(e) => updateLesson('videoUrl', e.target.value)}
+                          onChange={(e) => {
+                          const val = e.target.value;
+                          updateLesson('videoUrl', val);
+                          if (val.includes('r2.dev') || val.includes('.mp4') || (!val.includes('youtube.com') && !val.includes('youtu.be') && val.startsWith('http'))) {
+                            updateLesson('videoType', 'local');
+                          } else if (val.includes('youtube.com') || val.includes('youtu.be')) {
+                            updateLesson('videoType', 'youtube');
+                          }
+                        }}
                           placeholder="https://www.youtube.com/watch?v=... o https://pub-...r2.dev/videos/..."
                           className="w-full text-xs font-mono px-3.5 py-2.5 border border-[#d1d2e0] rounded-xl focus:outline-none focus:border-[#6d28d2]"
                         />
