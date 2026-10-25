@@ -501,7 +501,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setPinError('');
 
     const cleanPin = adminPin.trim().toUpperCase();
-    if (cleanPin !== 'TECNOGAN2026' && cleanPin !== '123321' && cleanPin !== 'DATAGAN2026') {
+    const expectedKey = (process.env.NEXT_PUBLIC_ADMIN_PIN || 'TECNOGAN2026').trim().toUpperCase();
+    if (cleanPin !== expectedKey && cleanPin !== 'TECNOGAN2026') {
       setPinError('Clave corporativa inválida. Solicítala a la dirección de TecnoGan.');
       return;
     }
