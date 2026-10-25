@@ -366,6 +366,28 @@ function AdminStudioWorkspace() {
     }
   };
 
+  const handleImportStarter = async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch('/datagan_course_complete.json');
+      if (!res.ok) throw new Error('No se encontro la plantilla de DataGan');
+      const parsed = await res.json();
+      const normalized = normalizeCourse(parsed.course || parsed);
+      const cleanPayload = cleanForFirebase(normalized);
+      await set(ref(db, `courses/${normalized.slug}`), cleanPayload);
+      setCourses((prev) => [...prev.filter((c) => c.slug !== normalized.slug), normalized]);
+      setSelectedCourse(normalized);
+      setSelectedModIdx(0);
+      setSelectedLesIdx(0);
+      alert(`¡Curso de DataGan "${normalized.title}" importado con éxito!`);
+    } catch (e: any) {
+      console.error(e);
+      alert(`Error importando plantilla: ${e?.message || e}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleBulkUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -891,13 +913,32 @@ function AdminStudioWorkspace() {
           <p className="text-[#595c73] text-xs">
             Crea tu primer curso para comenzar a estructurar módulos, videos y evaluaciones.
           </p>
-          <button
-            onClick={() => setIsCreateCourseModalOpen(true)}
-            className="w-full py-3 bg-[#6d28d2] text-white text-xs font-bold rounded-xl hover:bg-[#5b21b6] transition-all flex items-center justify-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Crear Primer Curso</span>
-          </button>
+          <div className="space-y-2.5 pt-2">
+            <button
+              type="button"
+              onClick={() => setIsCreateCourseModalOpen(true)}
+              className="w-full py-3 bg-[#6d28d2] text-white text-xs font-bold rounded-xl hover:bg-[#5b21b6] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Crear Primer Curso</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => fileInputBulkRef.current?.click()}
+              className="w-full py-2.5 bg-white border border-[#d1d2e0] text-[#2a2b3f] text-xs font-bold rounded-xl hover:bg-[#f6f7f9] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs active:scale-95"
+            >
+              <Upload className="w-4 h-4 text-[#595c73]" />
+              <span>Importar Curso (.json)</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleImportStarter}
+              className="w-full py-2 bg-[#6d28d2]/10 hover:bg-[#6d28d2]/20 text-[#6d28d2] text-[11px] font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Cargar Plantilla Oficial DataGan 360</span>
+            </button>
+          </div>
         </div>
       </div>
     );
