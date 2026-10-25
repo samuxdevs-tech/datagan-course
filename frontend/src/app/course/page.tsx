@@ -1038,7 +1038,16 @@ const handleHeartbeat = async (range: [number, number], currentSec: number, dura
                 <>
                   <UniversalVideoPlayer
                     key={activeLesson.id}
-                    videoType={activeLesson.videoType || 'youtube'}
+                    videoType={
+                      activeLesson.videoType === 'local' ||
+                      (activeLesson.videoUrl &&
+                        (activeLesson.videoUrl.includes('r2.dev') ||
+                          activeLesson.videoUrl.includes('.mp4') ||
+                          activeLesson.videoUrl.includes('.webm') ||
+                          !activeLesson.videoUrl.includes('youtu')))
+                        ? 'local'
+                        : 'youtube'
+                    }
                     videoUrl={activeLesson.videoUrl}
                     durationSeconds={activeLesson.durationSeconds || 900}
                     inVideoCheckpoints={activeLesson.inVideoCheckpoints || []}
