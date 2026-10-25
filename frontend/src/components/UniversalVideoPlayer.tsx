@@ -110,45 +110,52 @@ export default function UniversalVideoPlayer({
     }));
   }, [inVideoCheckpoints, passedCheckpoints]);
 
-  const ytId = videoType === 'youtube' ? getYouTubeId(videoUrl) : '';
+  // Inferencia infalible del tipo de video (YouTube vs Directo/R2/MP4)
+  const isYouTubeUrl = !!getYouTubeId(videoUrl);
+  const resolvedVideoType: 'youtube' | 'local' = 
+    videoType === 'local' || (!isYouTubeUrl && Boolean(videoUrl && videoUrl.trim()))
+      ? 'local' 
+      : 'youtube';
+
+  const ytId = resolvedVideoType === 'youtube' ? getYouTubeId(videoUrl) : '';
 
   // Pausar y reanudar video de forma unificada
   const pauseVideo = useCallback(() => {
-    if (videoType === 'youtube' && ytPlayerRef.current?.pauseVideo) {
+    if (resolvedVideoType === 'youtube' && ytPlayerRef.current?.pauseVideo) {
       try {
         ytPlayerRef.current.pauseVideo();
       } catch (e) {}
-    } else if (videoType === 'local' && videoRef.current && !videoRef.current.paused) {
+    } else if (resolvedVideoType === 'local' && videoRef.current && !videoRef.current.paused) {
       try {
         videoRef.current.pause();
       } catch (e) {}
     }
-  }, [videoType]);
+  }, [resolvedVideoType]);
 
   const playVideo = useCallback(() => {
-    if (videoType === 'youtube' && ytPlayerRef.current?.playVideo) {
+    if (resolvedVideoType === 'youtube' && ytPlayerRef.current?.playVideo) {
       try {
         ytPlayerRef.current.playVideo();
       } catch (e) {}
-    } else if (videoType === 'local' && videoRef.current) {
+    } else if (resolvedVideoType === 'local' && videoRef.current) {
       try {
         videoRef.current.play().catch(() => {});
       } catch (e) {}
     }
-  }, [videoType]);
+  }, [resolvedVideoType]);
 
   // Escuchar comandos de seek desde el padre
   useEffect(() => {
     if (seekToTime !== undefined && seekToTime >= 0) {
-      if (videoType === 'youtube' && ytPlayerRef.current?.seekTo) {
+      if (resolvedVideoType === 'youtube' && ytPlayerRef.current?.seekTo) {
         try {
           ytPlayerRef.current.seekTo(seekToTime, true);
         } catch (e) {}
-      } else if (videoType === 'local' && videoRef.current) {
+      } else if (resolvedVideoType === 'local' && videoRef.current) {
         videoRef.current.currentTime = seekToTime;
       }
     }
-  }, [seekToTime, videoType]);
+  }, [seekToTime, resolvedVideoType]);
 
   // Si el modal está abierto, garantizar que no se pueda reproducir por debajo
   const prevModalRef = useRef(isPausedByModal);
@@ -173,7 +180,7 @@ export default function UniversalVideoPlayer({
     let now = 0;
     let rate = 1;
 
-    if (videoType === 'youtube') {
+    if (resolvedVideoType === 'youtube') {
       if (!ytPlayerRef.current?.getCurrentTime) return;
       try {
         now = ytPlayerRef.current.getCurrentTime();
@@ -181,7 +188,7 @@ export default function UniversalVideoPlayer({
       } catch (e) {
         return;
       }
-    } else if (videoType === 'local' && videoRef.current) {
+    } else if (resolvedVideoType === 'local' && videoRef.current) {
       now = videoRef.current.currentTime;
       rate = videoRef.current.playbackRate || 1;
     }
@@ -220,11 +227,11 @@ export default function UniversalVideoPlayer({
         q.status = 'shown';
 
         if (now > q.timestampSeconds + 0.5) {
-          if (videoType === 'youtube' && ytPlayerRef.current?.seekTo) {
+          if (resolvedVideoType === 'youtube' && ytPlayerRef.current?.seekTo) {
             try {
               ytPlayerRef.current.seekTo(q.timestampSeconds, true);
             } catch (e) {}
-          } else if (videoType === 'local' && videoRef.current) {
+          } else if (resolvedVideoType === 'local' && videoRef.current) {
             videoRef.current.currentTime = q.timestampSeconds;
           }
           now = q.timestampSeconds;
@@ -243,13 +250,13 @@ export default function UniversalVideoPlayer({
     if (propsRef.current.onTimeUpdate) {
       propsRef.current.onTimeUpdate(roundedSec);
     }
-  }, [videoType, pauseVideo]);
+  }, [resolvedVideoType, pauseVideo]);
 
   // =========================================================================
   // INTEGRACIÓN CON YOUTUBE IFRAME PLAYER API
   // =========================================================================
   useEffect(() => {
-    if (videoType !== 'youtube' || !ytId) return;
+    if (resolvedVideoType !== 'youtube' || !ytId) return;
 
     let isSubscribed = true;
 
@@ -369,7 +376,7 @@ export default function UniversalVideoPlayer({
       isSubscribed = false;
       cleanup();
     };
-  }, [videoType, ytId, initialTime, tick]);
+  }, [resolvedVideoType, ytId, initialTime, tick]);
 
   // Manejo de Tolerancia de 15 segundos al perder foco o pestaña
   useEffect(() => {
@@ -415,7 +422,7 @@ export default function UniversalVideoPlayer({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  if (!videoUrl || (videoType === 'youtube' && !ytId)) {
+  if (!videoUrl || (resolvedVideoType === 'youtube' && !ytId)) {
     return (
       <div className="w-full aspect-video bg-[#202230] rounded-xl flex flex-col items-center justify-center text-[#9194ac] p-6">
         <Video className="w-12 h-12 mb-3 opacity-50" />
@@ -440,7 +447,7 @@ export default function UniversalVideoPlayer({
     >
       {/* Video Container */}
       <div className="absolute inset-0 z-0">
-        {videoType === 'youtube' ? (
+        {resolvedVideoType === 'youtube' ? (
           <iframe
             key={ytId}
             ref={iframeRef}
@@ -505,7 +512,7 @@ export default function UniversalVideoPlayer({
           </button>
 
           <div className="bg-[#202230]/90 backdrop-blur-md px-2.5 py-1.5 rounded-full flex items-center gap-1.5 text-[11px] text-[#e9eaf2] border border-[#3d4055] shadow-lg">
-            {videoType === 'youtube' ? (
+            {resolvedVideoType === 'youtube' ? (
               <>
                 <PlaySquare className="w-3.5 h-3.5 text-red-500" />
                 <span>YouTube</span>
