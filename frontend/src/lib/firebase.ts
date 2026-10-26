@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAUAPg2ASuqoPIj1stTfEJJr_h1hBnY6aU",
-  authDomain: "datagan-course.firebaseapp.com",
-  databaseURL: "https://datagan-course-default-rtdb.firebaseio.com",
-  projectId: "datagan-course",
-  storageBucket: "datagan-course.firebasestorage.app",
-  messagingSenderId: "367635095384",
-  appId: "1:367635095384:web:fe8894d8b16f076275cf2d"
+  apiKey: "AIzaSyBbCW8YA2Lf_d1fTKMt7RmWRMW8D4IoqtI",
+  authDomain: "datagan-edu.firebaseapp.com",
+  databaseURL: "https://datagan-edu-default-rtdb.firebaseio.com",
+  projectId: "datagan-edu",
+  storageBucket: "datagan-edu.firebasestorage.app",
+  messagingSenderId: "67562731574",
+  appId: "1:67562731574:web:bcdb2c5c05a0ab12e24097"
 };
 
 // Initialize Firebase (prevent multiple initializations in Next.js dev mode)
